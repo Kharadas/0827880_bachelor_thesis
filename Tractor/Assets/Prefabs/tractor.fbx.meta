@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: 54d24ea188a2b9048aedf90a39eb9fe1
+timeCreated: 1484739603
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Camera
+    100002: empty_back_l
+    100004: empty_back_r
+    100006: empty_front_l
+    100008: empty_front_r
+    100010: Floor
+    100012: gear_shift_lever
+    100014: ground_detector
+    100016: Lamp
+    100018: LB_wheel
+    100020: LF_wheel
+    100022: Model
+    100024: p_bottom_left_obj
+    100026: p_gas_lever
+    100028: p_top_left_obj
+    100030: Pedal
+    100032: RB_wheel
+    100034: RF_wheel
+    100036: steering_wheel
+    100038: //RootNode
+    100040: Tyre_rotation_origin
+    400000: Camera
+    400002: empty_back_l
+    400004: empty_back_r
+    400006: empty_front_l
+    400008: empty_front_r
+    400010: Floor
+    400012: gear_shift_lever
+    400014: ground_detector
+    400016: Lamp
+    400018: LB_wheel
+    400020: LF_wheel
+    400022: Model
+    400024: p_bottom_left_obj
+    400026: p_gas_lever
+    400028: p_top_left_obj
+    400030: Pedal
+    400032: RB_wheel
+    400034: RF_wheel
+    400036: steering_wheel
+    400038: //RootNode
+    400040: Tyre_rotation_origin
+    2300000: Floor
+    2300002: gear_shift_lever
+    2300004: ground_detector
+    2300006: LB_wheel
+    2300008: LF_wheel
+    2300010: Model
+    2300012: p_bottom_left_obj
+    2300014: p_gas_lever
+    2300016: p_top_left_obj
+    2300018: Pedal
+    2300020: RB_wheel
+    2300022: RF_wheel
+    2300024: steering_wheel
+    3300000: Floor
+    3300002: gear_shift_lever
+    3300004: ground_detector
+    3300006: LB_wheel
+    3300008: LF_wheel
+    3300010: Model
+    3300012: p_bottom_left_obj
+    3300014: p_gas_lever
+    3300016: p_top_left_obj
+    3300018: Pedal
+    3300020: RB_wheel
+    3300022: RF_wheel
+    3300024: steering_wheel
+    4300000: Floor
+    4300002: ground_detector
+    4300004: p_gas_lever
+    4300006: p_bottom_left_obj
+    4300008: p_top_left_obj
+    4300010: Pedal
+    4300012: RF_wheel
+    4300014: LF_wheel
+    4300016: RB_wheel
+    4300018: LB_wheel
+    4300020: steering_wheel
+    4300022: gear_shift_lever
+    4300024: Model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

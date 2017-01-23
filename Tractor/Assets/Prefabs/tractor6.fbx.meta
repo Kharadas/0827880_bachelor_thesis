@@ -1,0 +1,128 @@
+fileFormatVersion: 2
+guid: 5cc68b58a488ad54a905be8f986c203b
+timeCreated: 1484826963
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: gear_shift_lever
+    100002: LB_wheel
+    100004: LF_wheel
+    100006: Model
+    100008: p_bottom_left_obj
+    100010: p_gas_lever
+    100012: p_top_left_obj
+    100014: Pedal
+    100016: RB_wheel
+    100018: RF_wheel
+    100020: steering_wheel
+    100022: //RootNode
+    400000: gear_shift_lever
+    400002: LB_wheel
+    400004: LF_wheel
+    400006: Model
+    400008: p_bottom_left_obj
+    400010: p_gas_lever
+    400012: p_top_left_obj
+    400014: Pedal
+    400016: RB_wheel
+    400018: RF_wheel
+    400020: steering_wheel
+    400022: //RootNode
+    2300000: gear_shift_lever
+    2300002: LB_wheel
+    2300004: LF_wheel
+    2300006: Model
+    2300008: p_bottom_left_obj
+    2300010: p_gas_lever
+    2300012: p_top_left_obj
+    2300014: Pedal
+    2300016: RB_wheel
+    2300018: RF_wheel
+    2300020: steering_wheel
+    3300000: gear_shift_lever
+    3300002: LB_wheel
+    3300004: LF_wheel
+    3300006: Model
+    3300008: p_bottom_left_obj
+    3300010: p_gas_lever
+    3300012: p_top_left_obj
+    3300014: Pedal
+    3300016: RB_wheel
+    3300018: RF_wheel
+    3300020: steering_wheel
+    4300000: LB_wheel
+    4300002: LF_wheel
+    4300004: Model
+    4300006: Pedal
+    4300008: RB_wheel
+    4300010: RF_wheel
+    4300012: gear_shift_lever
+    4300014: p_bottom_left_obj
+    4300016: p_gas_lever
+    4300018: p_top_left_obj
+    4300020: steering_wheel
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
