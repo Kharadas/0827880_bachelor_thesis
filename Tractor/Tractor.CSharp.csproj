@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GearShiftControl.cs" />
+    <Compile Include="Assets\Scripts\PedalRotation.cs" />
     <Compile Include="Assets\Scripts\SteeringWheelRotation.cs" />
     <Compile Include="Assets\Scripts\TractorController.cs" />
     <Compile Include="Assets\Scripts\TractorController2.cs" />

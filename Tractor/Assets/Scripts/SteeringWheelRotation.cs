@@ -14,7 +14,7 @@ public class SteeringWheelRotation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.rotation = Quaternion.AngleAxis(-30f, new Vector3(30f,0,0));
-        transform.Rotate(0, -sWRotation, 0);
+        //transform.rotation = Quaternion.AngleAxis(-30f, new Vector3(30f,0,0));
+        //transform.Rotate(0, sWRotation, 0);
     }
 }
