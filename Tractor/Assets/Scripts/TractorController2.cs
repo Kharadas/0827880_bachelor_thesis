@@ -13,14 +13,18 @@ public class TractorController2 : MonoBehaviour {
 
     //Each wheel needs its own mesh
     public Transform[] wheelMesh = new Transform[4];
-    
-    //origin of the pedal
+
+    //To change the center of gravity
+    private Rigidbody tractor;
+    private Vector3 tractorCoM;
+
+    //Origin of the pedal
     private Quaternion origin;
 
     //The maximum amount of power put out by each wheel
     private float maxTorque = 500f;
 
-    //control parts
+    //Control parts
     private GameObject steeringWheel;
     private GameObject pedal;
     private GameObject gearShift;
@@ -30,6 +34,11 @@ public class TractorController2 : MonoBehaviour {
 
     public void Start()
     {
+        //To balance the vehicle during turns
+        tractor = GetComponent<Rigidbody>();
+        tractorCoM = tractor.centerOfMass;
+        tractor.centerOfMass = new Vector3(tractorCoM.x, tractorCoM.y-3, tractorCoM.z);
+
         steeringWheel = GameObject.Find("SteeringWheel");
         pedal = GameObject.Find("Pedal");
         gearShift = GameObject.Find("GearShift");
@@ -43,7 +52,7 @@ public class TractorController2 : MonoBehaviour {
     public void Update()
     {
         //Sets the wheel meshs to match the rotation of the physics WheelCollider
-        UpdateMeshPosition();
+        UpdateWheelPosition();
 
         //Updates the stering wheel rotation
         UpdateSteeringWheel();
@@ -151,7 +160,7 @@ public class TractorController2 : MonoBehaviour {
     }
 
     //Sets each wheel to move with the physics WheelColliders
-    public void UpdateMeshPosition()
+    public void UpdateWheelPosition()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -184,5 +193,20 @@ public class TractorController2 : MonoBehaviour {
         {
             wheelCollider[i].motorTorque = torque;
         }
+
+        /*
+        if (torque > 200)
+        {
+            if (steer < 0)  //turning left
+            {
+                wheelCollider[3].mass = 500;
+            } else {        //turning right
+                wheelCollider[2].mass = 500;
+            }
+        } else {
+            wheelCollider[2].mass = 70;
+            wheelCollider[3].mass = 70;
+        }
+        */
     }
 }
