@@ -3,18 +3,18 @@ using System.Collections;
 
 public class MouseCamera : MonoBehaviour {
 
-    public float speedH = 2.0f;
-    public float speedV = 2.0f;
+    public float speedH = 1.5f;
+    public float speedV = 1.5f;
 
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
+    private float xMouse = 0.0f;
+    private float yMouse = 0.0f;
 
     void Update()
     {
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+        xMouse += speedH * Input.GetAxis("Mouse X");
+        yMouse -= speedV * Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        transform.eulerAngles = new Vector3(yMouse, xMouse, 0.0f);
     }
 
 }

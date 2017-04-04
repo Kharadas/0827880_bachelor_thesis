@@ -4,18 +4,22 @@ using System.Collections;
 public class TractorController : MonoBehaviour {
     
     //The max distance a wheel can turn
-    public float maxSteerAngle = 45f;
+    private float maxSteerAngle = 45f;
     
     //Brakeforce to be applied
     public float BrakeForce;
-    public float steer = 0;
+    private float steer = 0;
     public WheelCollider[] wheelCollider = new WheelCollider[4];
 
     //Audio sources for tractor sounds
     public AudioSource tractorSound;
+    public AudioSource clickSound;
+    public AudioSource gearSwitchSound;
     public AudioClip tractorStart;
     public AudioClip tractorIdle;
     public AudioClip tractorMoving;
+    public AudioClip tractorStop;
+    public AudioClip click;
 
     //Each wheel needs its own mesh
     public Transform[] wheelMesh = new Transform[4];
@@ -24,31 +28,40 @@ public class TractorController : MonoBehaviour {
     private Rigidbody tractor;
     private Vector3 tractorCoM;
 
-    //Origin of the pedal
+    //Onject's origin
     private Quaternion origin;
 
     //The maximum amount of power put out by each wheel
     private float maxTorque = 500f;
 
     //Control parts
-    private GameObject steeringWheel;
-    private GameObject pedal;
-    private GameObject gearShift;
-    private GameObject gasLever;
-    private GameObject blObj;
-    private GameObject tlObj;
-    private GameObject attachment;
+    public GameObject steeringWheel;
+    public GameObject pedal;
+    public GameObject gearShift;
+    public GameObject gasLever;
+    public GameObject blObj;
+    public GameObject tlObj;
+    public GameObject attachment;
 
     //Cameras
-    private Camera firstPersonCamera;
-    private Camera overheadCamera;
+    public Camera firstPersonCamera;
+    public Camera overheadCamera;
+    public Camera frontViewCamera;
 
     //Conditions to move the tractor
     private bool tractorStarted;
+    private bool tractorStopped;
     private bool tractorOnMove;
     private bool tractorReady1;
     private bool tractorReady2;
     private bool tractorReady3;
+
+    //Tractor movement check - LateUpdate
+    private Vector3 oldPos;
+    private Vector3 newPos;
+    private bool isMoving;
+
+    private int countB;
 
     public void Start()
     {
@@ -57,25 +70,21 @@ public class TractorController : MonoBehaviour {
         tractorCoM = tractor.centerOfMass;
         tractor.centerOfMass = new Vector3(tractorCoM.x, tractorCoM.y-4, tractorCoM.z);
 
-        steeringWheel = GameObject.Find("SteeringWheel");
-        pedal = GameObject.Find("Pedal");
-        gearShift = GameObject.Find("GearShift");
-        gasLever = GameObject.Find("GasLever");
-        blObj = GameObject.Find("BLObj");
-        tlObj = GameObject.Find("TLObj");
-        attachment = GameObject.Find("Attachment");
-
-        firstPersonCamera = GameObject.Find("FirstPersonCamera").GetComponent<Camera>();
-        overheadCamera = GameObject.Find("OverheadCamera").GetComponent<Camera>();
+        frontViewCamera.GetComponent<AudioListener>().enabled = false;
         overheadCamera.GetComponent<AudioListener>().enabled = false;
 
         origin = new Quaternion(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z, 1);
 
         tractorStarted = false;
+        tractorStopped = false;
         tractorOnMove = false;
         tractorReady1 = false;
         tractorReady2 = false;
         tractorReady3 = false;
+
+        isMoving = false;
+        
+        countB = 0;
     }
 
     public void Update()
@@ -101,37 +110,72 @@ public class TractorController : MonoBehaviour {
         //Updates camera view
         UpdateCameraView();
 
+        //Updates engine's sound
+        UpdateSounds();
         
-        if (!tractorSound.isPlaying && tractorStarted)
+    }
+
+    void LateUpdate()
+    {
+        newPos.z = tractor.position.z;
+
+        if (Mathf.Abs(oldPos.z-newPos.z) > 0.01)
         {
-            tractorSound.clip = tractorIdle;
-            tractorSound.Play();
+            isMoving = true;
         }
-        
-        if (tractorStarted && tractorOnMove)
-        {
-            tractorSound.clip = tractorMoving;
-            //tractorSound.Play();
-        }
+
+        oldPos.z = newPos.z;
+    }
+
+    public void UpdateSounds()
+    {
+            if (!tractorSound.isPlaying && tractorStarted && !tractorStopped)
+            {
+                tractorSound.clip = tractorIdle;
+                if (tractorOnMove)
+                {
+                    tractorSound.clip = tractorMoving;
+                    tractorSound.loop = true;
+                }
+                tractorSound.Play();
+            }
     }
 
     public void UpdateCameraView()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            firstPersonCamera.enabled = !firstPersonCamera.enabled;
-            overheadCamera.enabled = !firstPersonCamera.enabled;
+        if (Input.GetKey(KeyCode.Alpha1)) {
+            firstPersonCamera.enabled = true;
+            overheadCamera.enabled = false;
+            frontViewCamera.enabled = false;
+        } else if (Input.GetKey(KeyCode.Alpha2)) {
+            firstPersonCamera.enabled = false;
+            overheadCamera.enabled = true;
+            frontViewCamera.enabled = false;
+        } else if (Input.GetKey(KeyCode.Alpha3)) {
+            firstPersonCamera.enabled = false;
+            overheadCamera.enabled = false;
+            frontViewCamera.enabled = true;
         }
 
         if (firstPersonCamera.enabled)
         {
             overheadCamera.GetComponent<AudioListener>().enabled = false;
             firstPersonCamera.GetComponent<AudioListener>().enabled = true;
+            frontViewCamera.GetComponent<AudioListener>().enabled = false;
         }
+
         if (overheadCamera.enabled)
         {
             firstPersonCamera.GetComponent<AudioListener>().enabled = false;
             overheadCamera.GetComponent<AudioListener>().enabled = true;
+            frontViewCamera.GetComponent<AudioListener>().enabled = false;
+        }
+
+        if (frontViewCamera.enabled)
+        {
+            firstPersonCamera.GetComponent<AudioListener>().enabled = false;
+            overheadCamera.GetComponent<AudioListener>().enabled = false;
+            frontViewCamera.GetComponent<AudioListener>().enabled = true;
         }
     }
 
@@ -156,10 +200,24 @@ public class TractorController : MonoBehaviour {
             gasLever.transform.localRotation = Quaternion.Slerp(gasLever.transform.localRotation, Quaternion.Euler(10, -90, 0), Time.deltaTime * 5);
             tractorReady1 = true;
         }
-
+        if (Input.GetKey(KeyCode.H))
+        {
+            gasLever.transform.localRotation = Quaternion.Slerp(gasLever.transform.localRotation, Quaternion.Euler(10, 0, 0), Time.deltaTime * 5);
+            tractorReady1 = false;
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            tractorSound.loop = false;
+            tractorStarted = false;
+            tractorSound.clip = tractorStop;
+            if (tractorStopped == false)
+                tractorSound.Play();
+            tractorStopped = true;
+            blObj.transform.localRotation = Quaternion.Slerp(origin, blObj.transform.localRotation, Time.deltaTime * 1);
+        }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            
+            tractorStopped = false;
             tractorSound.clip = tractorStart;
             if (tractorStarted == false)
                 tractorSound.Play();
@@ -168,8 +226,18 @@ public class TractorController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.B))
         {
-            blObj.transform.localRotation = Quaternion.Slerp(blObj.transform.localRotation, Quaternion.Euler(45, 0, 0), Time.deltaTime * 5);
+            if (countB < 1)
+                blObj.transform.localRotation = Quaternion.Slerp(blObj.transform.localRotation, Quaternion.Euler(45, 0, 0), Time.deltaTime * 5);            
             tractorReady2 = true;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (countB < 1)
+                clickSound.Play();
+        }
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            countB++;
         }
 
         if (Input.GetKey(KeyCode.T))
@@ -179,6 +247,11 @@ public class TractorController : MonoBehaviour {
         if (Input.GetKey(KeyCode.Y))
         {
             tlObj.transform.localRotation = Quaternion.Slerp(tlObj.transform.localRotation, Quaternion.Euler(0, -90, 15), Time.deltaTime * 5);
+        }
+
+        if (tractorStopped)
+        {
+            countB = 0;
         }
     }
 
@@ -222,6 +295,11 @@ public class TractorController : MonoBehaviour {
         {
             tractorReady3 = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            gearSwitchSound.Play();
+        }
     }
 
     public void UpdateBrake()
@@ -264,6 +342,7 @@ public class TractorController : MonoBehaviour {
         }
     }
 
+    // Check if tractor is ready to move
     public bool TractorReady()
     {
         return tractorReady1 && tractorReady2 && tractorReady3;
@@ -277,7 +356,10 @@ public class TractorController : MonoBehaviour {
 
         if (TractorReady() == true)
         {
-            tractorOnMove = true;
+            if (isMoving == true)
+            {
+                tractorOnMove = true;
+            }
             //Move forward or backwards based on the maxTorque, with an input.
             float torque = Input.GetAxis("Vertical") * maxTorque;
 
@@ -290,6 +372,5 @@ public class TractorController : MonoBehaviour {
                 wheelCollider[i].motorTorque = torque;
             }
         }
-        
     }
 }
