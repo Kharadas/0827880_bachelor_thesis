@@ -8,7 +8,11 @@ public class TractorController : MonoBehaviour {
     
     //Brakeforce to be applied
     public float BrakeForce;
+
+    //Rotate angle
     private float steer = 0;
+
+    //Wheel colliders for wheels
     public WheelCollider[] wheelCollider = new WheelCollider[4];
 
     //Audio sources for tractor sounds
@@ -61,6 +65,7 @@ public class TractorController : MonoBehaviour {
     private Vector3 newPos;
     private bool isMoving;
 
+    //BObj counter
     private int countB;
 
     public void Start()
@@ -70,11 +75,14 @@ public class TractorController : MonoBehaviour {
         tractorCoM = tractor.centerOfMass;
         tractor.centerOfMass = new Vector3(tractorCoM.x, tractorCoM.y-4, tractorCoM.z);
 
+        //Getting rid of extra Audiolisteners in the scene
         frontViewCamera.GetComponent<AudioListener>().enabled = false;
         overheadCamera.GetComponent<AudioListener>().enabled = false;
 
+        //Origin position of the tractor
         origin = new Quaternion(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z, 1);
 
+        //Boolean values to check if tractor is ready to start
         tractorStarted = false;
         tractorStopped = false;
         tractorOnMove = false;
@@ -82,8 +90,10 @@ public class TractorController : MonoBehaviour {
         tractorReady2 = false;
         tractorReady3 = false;
 
+        //Boolean value to check if tractor is moving or not
         isMoving = false;
         
+        //Count bObj clicks
         countB = 0;
     }
 
@@ -112,7 +122,9 @@ public class TractorController : MonoBehaviour {
 
         //Updates engine's sound
         UpdateSounds();
-        
+
+        //Resets tractor position
+        ResetTractorPosition();
     }
 
     void LateUpdate()
@@ -123,8 +135,17 @@ public class TractorController : MonoBehaviour {
         {
             isMoving = true;
         }
-
         oldPos.z = newPos.z;
+    }
+    
+    public void ResetTractorPosition()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            transform.position = new Vector3(0, 3, 0);
+            transform.rotation = Quaternion.identity;
+            tractor.velocity = Vector3.zero;
+        }
     }
 
     public void UpdateSounds()
@@ -204,6 +225,7 @@ public class TractorController : MonoBehaviour {
         {
             gasLever.transform.localRotation = Quaternion.Slerp(gasLever.transform.localRotation, Quaternion.Euler(10, 0, 0), Time.deltaTime * 5);
             tractorReady1 = false;
+            tractor.velocity = Vector3.zero;
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
